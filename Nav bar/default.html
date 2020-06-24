@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="flex justify-between" x-data="{ sidebar:true }">
-        <div x-show="sidebar" class="w-1/6 flex-row bg-gray-900">
+        <div x-show="sidebar" class="hidden lg:block flex-row bg-gray-900" :class="{'w-1/6':sidebar}">
             <div class="h-16 w-full"></div>
             <div class="flex cursor-pointer bg-gray-900 pl-1 hover:bg-blue-500 w-full">
                 <div class="w-full py-1 pl-2 bg-gray-900">
@@ -30,12 +30,17 @@
                 </div>
             </div>
         </div>
-        <div class="w-5/6 bg-white" :class="{'w-full': !sidebar}">
+        <div class="w-full bg-white" :class="{'w-5/6': sidebar}">
             <!-- mt-0 fixed z-10 top-0  -->
             <nav>
                 <div class="flex justify-between px-2 w-full h-16 bg-blue-300">
                     <div class="my-auto">
-                        <button @click="sidebar = !sidebar" class="px-2 bg-white">Menu</button>
+                        <div class="flex">
+                            <div class="flex my-auto">
+                              <img  @click="sidebar = !sidebar" src="labs.png" class="w-12" />
+                              <div class="my-auto ml-2 text-xl">Labs Full Stack</div>
+                            </div>
+                          </div>
                     </div>
                     <div class=""  x-data="{profile: false}">
                         <div class="flex">
@@ -49,6 +54,8 @@
                                     <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400" src="kristy.png" alt="Kristy Jemal">
                                 </a>
                             </div>
+                            <label @click="open = true" for="menu-toggle" class="my-auto py-3 px-2 pointer-cursor lg:hidden block"><svg class="fill-current text-gray-900" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></label>
+
                         </div>
                         <div x-show="profile" class="flex justify-end">
                             <div  @click.away="profile = false" class="bg-white z-50 h-12 w-64">
@@ -57,11 +64,13 @@
                         </div>
                     </div>
                 </div>
+            </nav>
                 
-                <div class="">
-                    <div class="flex mt-2 p-4 w-full bg-gray-200">
-                        <template x-for="product in products" :key="product">
-                            <div class="bg-white shadow-md w-1/6 ml-4" >
+            <div class="">
+                <div class="flex flex-wrap mt-2 px-0 lg:px-4 lg:py-4 w-full bg-gray-200">
+                    <template x-for="product in products" :key="product" class="">
+                        <div class="w-1/2 lg:w-1/6">
+                            <div class="bg-white shadow-md mr-1 ml-1 mt-2" >
                                 <img :src="product.img" alt="" width="100%">
                                 <div class="py-2 px-2">
                                     <p class="text-sm" x-text="product.name"></p>
@@ -71,16 +80,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </template>
-                    </div>
-                    <div class="mt-2 h-64 w-full bg-green-200">
-    
-                    </div>
-                    <div class="mt-2 h-64 w-full bg-green-200">
-    
-                    </div>
+                        </div>
+                    </template>
                 </div>
-            </nav>
+                <div class="mt-2 h-64 w-full bg-green-200">
+
+                </div>
+                <div class="mt-2 h-64 w-full bg-green-200">
+
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -113,6 +122,11 @@
             {
                 id:"6",
                 name: "Product Six",
+                img:"./kristy.png"
+            },
+            {
+                id:"7",
+                name: "Product Seven",
                 img:"./kristy.png"
             }
         ]
